@@ -1,20 +1,17 @@
 # DeepSeek API配置
+# 修改 config.yaml 中的配置
 deepseek:
-  api_base: "https://api.deepseek.com/v1"
   model: "deepseek-chat"
-  max_tokens: 4000
+  max_tokens: 2000  # 减少每次请求的token数
   temperature: 0.7
-  timeout: 30
+  timeout: 60       # 增加超时时间
 
-# 生成配置
 generation:
-  max_batch_size: 10
+  max_batch_size: 3  # 减少批量生成数量
   words_per_chapter:
     min: 1000
-    max: 10000
-    default: 3000
-  consistency_threshold: 75
-  max_retries: 3
+    max: 5000
+    default: 2000   # 减少默认章节字数
 
 # 记忆系统
 memory:

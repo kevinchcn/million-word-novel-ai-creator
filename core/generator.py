@@ -11,6 +11,29 @@ from langchain.prompts import PromptTemplate
 from langchain_community.chat_models import ChatOpenAI
 from langchain.schema import BaseOutputParser
 import yaml
+import functools
+import time
+
+def retry_on_timeout(max_retries=3, delay=2):
+    """超时重试装饰器"""
+    def decorator(func):
+        @functools.wraps(func)
+        def wrapper(*args, **kwargs):
+            last_error = None
+            for attempt in range(max_retries):
+                try:
+                    return func(*args, **kwargs)
+                except Exception as e:
+                    last_error = e
+                    if "timeout" in str(e).lower() or "timed out" in str(e).lower():
+                        if attempt < max_retries - 1:
+                            time.sleep(delay * (attempt + 1))
+                            continue
+                    # 非超时错误直接抛出
+                    raise
+            raise last_error
+        return wrapper
+    return decorator
 
 class JSONOutputParser(BaseOutputParser):
     """JSON输出解析器"""
@@ -47,8 +70,10 @@ class NovelGenerator:
                 openai_api_key=api_key,
                 openai_api_base="https://api.deepseek.com/v1",
                 temperature=0.7,
-                max_tokens=4000,
-                timeout=30
+                max_tokens=2000,  # 减少生成的token数
+                timeout=120,      # 增加超时时间到120秒
+                max_retries=2,    # 添加重试机制
+                request_timeout=120  # 请求超时时间
             )
             
             self.output_parser = JSONOutputParser()
@@ -228,7 +253,7 @@ class NovelGenerator:
             }}
             """
         )
-    
+    @retry_on_timeout(max_retries=2, delay=1)
     def generate_outline(self, creative: str, word_count: int, novel_type: str, writing_style: str) -> Dict[str, Any]:
         """
         生成小说大纲
@@ -365,34 +390,26 @@ class NovelGenerator:
         
         return result
     
-    def generate_chapter_plan(self, outline: Dict[str, Any], target_words: int) -> List[Dict[str, Any]]:
-        """
-        生成章节计划
-        
-        Args:
-            outline: 小说大纲
-            target_words: 目标字数
-            
-        Returns:
-            章节计划列表
-        """
-        # 简单估算章节数（每章3000字）
+    def generate_chapter_plan(self, outline, target_words):
+        """生成章节计划"""
+        # 简单实现：按字数估算章节数
         estimated_chapters = max(10, target_words // 3000)
         
         chapter_plan = []
         for i in range(1, estimated_chapters + 1):
             if i <= estimated_chapters * 0.3:
-                act = "第一幕"
+                act = "第一幕：建立"
             elif i <= estimated_chapters * 0.7:
-                act = "第二幕"
+                act = "第二幕：对抗"
             else:
-                act = "第三幕"
+                act = "第三幕：解决"
             
             chapter_plan.append({
-                "chapter": i,
-                "act": act,
-                "target_words": 3000,
-                "status": "待生成"
+                "章节": i,
+                "幕": act,
+                "目标字数": 3000,
+                "状态": "待生成",
+                "摘要": ""
             })
         
         return chapter_plan
