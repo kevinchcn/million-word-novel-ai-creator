@@ -1,0 +1,37 @@
+# DeepSeek API配置
+deepseek:
+  api_base: "https://api.deepseek.com/v1"
+  model: "deepseek-chat"
+  max_tokens: 4000
+  temperature: 0.7
+  timeout: 30
+
+# 生成配置
+generation:
+  max_batch_size: 10
+  words_per_chapter:
+    min: 1000
+    max: 10000
+    default: 3000
+  consistency_threshold: 75
+  max_retries: 3
+
+# 记忆系统
+memory:
+  vector_store_path: "./memory/vector_store"
+  max_memory_items: 1000
+  retrieval_k: 5
+  context_window: 5
+
+# 文件路径
+paths:
+  outputs: "./outputs"
+  templates: "./templates"
+  memory: "./memory"
+
+# 界面配置
+ui:
+  theme:
+    primary_color: "#667eea"
+    secondary_color: "#764ba2"
+    background_color: "#f8f9fa"

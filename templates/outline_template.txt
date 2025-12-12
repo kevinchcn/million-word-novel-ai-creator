@@ -1,0 +1,36 @@
+小说大纲模板
+
+## 基本信息
+- 小说标题：{title}
+- 核心主题：{theme}
+- 目标字数：{target_words}
+- 预计章节：{estimated_chapters}
+
+## 故事梗概
+{summary}
+
+## 三幕结构
+
+### 第一幕：建立
+{act1_details}
+
+### 第二幕：对抗
+{act2_details}
+
+### 第三幕：解决
+{act3_details}
+
+## 主要人物
+{characters}
+
+## 关键情节点
+{plot_points}
+
+## 世界观设定
+{worldview}
+
+## 创作说明
+- 写作风格：{writing_style}
+- 目标读者：{target_audience}
+- 创作难点：{difficulties}
+- 解决方案：{solutions}

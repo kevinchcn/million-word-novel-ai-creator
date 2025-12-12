@@ -1,0 +1,42 @@
+人物档案模板
+
+## 基本信息
+- 姓名：{name}
+- 年龄：{age}
+- 性别：{gender}
+- 外貌特征：{appearance}
+
+## 身份背景
+{identity}
+
+## 性格特点
+### 显性性格
+{explicit_personality}
+
+### 隐性性格
+{implicit_personality}
+
+## 核心动机
+{motivation}
+
+## 背景故事
+{background}
+
+## 成长弧线
+{growth_arc}
+
+## 能力设定
+### 主要能力
+{abilities}
+
+### 弱点限制
+{weaknesses}
+
+## 人物关系
+{relationships}
+
+## 重要事件
+{important_events}
+
+## 未来发展
+{future_development}

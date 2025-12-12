@@ -1,0 +1,38 @@
+章节模板
+
+# 第{chapter_number}章：{title}
+
+## 章节概要
+{summary}
+
+## 关键场景
+{key_scenes}
+
+## 涉及人物
+{involved_characters}
+
+## 情节发展
+{plot_advancement}
+
+## 人物发展
+{character_development}
+
+## 新元素/伏笔
+{new_elements}
+
+## 章节内容
+{content}
+
+## 章节统计
+- 字数：{word_count}
+- 段落数：{paragraph_count}
+- 场景数：{scene_count}
+- 对话占比：{dialogue_ratio}
+
+## 质量评估
+- 一致性评分：{consistency_score}
+- 文学评分：{literary_score}
+- 节奏评分：{pace_score}
+
+## 修改建议
+{suggestions}
