@@ -105,6 +105,7 @@ class NovelGenerator:
         """初始化提示词模板"""
         
         # 大纲生成模板
+        # 将原来的三幕结构改为副本/卷结构
         self.outline_template = PromptTemplate(
             input_variables=["creative", "word_count", "novel_type", "writing_style"],
             template="""
@@ -125,20 +126,32 @@ class NovelGenerator:
                 "summary": "300-500字的故事梗概",
                 "target_words": {word_count},
                 "estimated_chapters": 基于字数估算的章节数,
-                "structure": {{
-                    "act1": {{
-                        "description": "第一幕：建立",
-                        "details": "详细描述..."
+                "volumes": [
+                    {{
+                        "volume_number": 1,
+                        "volume_name": "第一卷名",
+                        "description": "第一卷描述",
+                        "difficulty": "简单/中等/困难",
+                        "estimated_chapters": 预计章节数,
+                        "key_events": ["关键事件1", "关键事件2"]
                     }},
-                    "act2": {{
-                        "description": "第二幕：对抗",
-                        "details": "详细描述..."
+                    {{
+                        "volume_number": 2,
+                        "volume_name": "第二卷名",
+                        "description": "第二卷描述",
+                        "difficulty": "中等",
+                        "estimated_chapters": 预计章节数,
+                        "key_events": ["关键事件1", "关键事件2"]
                     }},
-                    "act3": {{
-                        "description": "第三幕：解决",
-                        "details": "详细描述..."
+                    {{
+                        "volume_number": 3,
+                        "volume_name": "第三卷名",
+                        "description": "第三卷描述",
+                        "difficulty": "困难",
+                        "estimated_chapters": 预计章节数,
+                        "key_events": ["关键事件1", "关键事件2"]
                     }}
-                }},
+                ],
                 "key_plot_points": [
                     "关键情节点1",
                     "关键情节点2",
@@ -153,20 +166,27 @@ class NovelGenerator:
         )
         
         # 人物生成模板
+        # 修改人物生成模板，强调基于大纲生成
         self.character_template = PromptTemplate(
             input_variables=["outline"],
             template="""
-            基于以下小说大纲，生成主要人物设定：
+            基于以下小说大纲，生成相关的人物设定：
             
-            大纲：{outline}
+            小说大纲：
+            {outline}
             
-            要求生成3-5个主要人物，每个人物包含：
-            1. 姓名、年龄、性别、外貌特征
-            2. 身份背景
-            3. 性格特点（显性和隐性）
-            4. 核心动机和目标
-            5. 成长弧线
-            6. 与其他人物关系
+            要求：
+            1. 基于上述大纲内容，生成与故事相关的人物
+            2. 包括主要角色和重要配角
+            3. 每个人物包含：
+            - 姓名、年龄、性别、外貌特征
+            - 身份背景（与故事的关系）
+            - 性格特点
+            - 核心动机和目标
+            - 成长弧线
+            - 特殊能力（如果有）
+            
+            请确保生成的人物与大纲内容紧密相关。
             
             输出格式（JSON数组）：
             [
@@ -175,11 +195,12 @@ class NovelGenerator:
                     "age": "年龄",
                     "gender": "性别",
                     "appearance": "外貌特征",
-                    "identity": "身份背景",
+                    "identity": "身份背景（说明与故事的关系）",
                     "personality": "性格特点",
                     "motivation": "核心动机",
                     "growth_arc": "成长弧线",
-                    "relationships": ["关系1", "关系2"]
+                    "abilities": ["能力1", "能力2"],
+                    "relationship_to_story": "与故事的关系描述"
                 }}
             ]
             """

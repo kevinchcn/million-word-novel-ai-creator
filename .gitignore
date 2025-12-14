@@ -57,3 +57,14 @@ coverage.xml
 
 # Ignore compiled C extensions
 *.so
+
+# Ignore memory
+memory/
+memory/backups/
+memory/characters/
+memory/locations/
+memory/plots/
+memory/relationships/
+memory/summaries/
+timeline.json
+core_settings.json

@@ -1,1 +1,20 @@
-[]
+[
+  {
+    "chapter": 2,
+    "description": "叶修应对黄少天等人对其出任领队的首批反应",
+    "timestamp": "2025-12-14T20:02:29.959691",
+    "type": "chapter_event"
+  },
+  {
+    "chapter": 2,
+    "description": "叶修审阅并最终确定国家队十四人初选名单",
+    "timestamp": "2025-12-14T20:02:29.959699",
+    "type": "chapter_event"
+  },
+  {
+    "chapter": 2,
+    "description": "叶修收到联盟主席信息，提及“特殊注册资格”",
+    "timestamp": "2025-12-14T20:02:29.959704",
+    "type": "chapter_event"
+  }
+]

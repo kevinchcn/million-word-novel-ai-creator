@@ -214,7 +214,18 @@ class SmartMemory:
                 
         except Exception as e:
             print(f"⚠️ 备份失败: {str(e)}")
-    
+
+    # 在 SmartMemory 类中添加以下方法（大约在第200行附近）
+    def save_chapter_plan(self, chapter_plan):
+        """保存章节计划 - 简单实现"""
+        # 保存到核心设定中
+        self.core_settings['chapter_plan'] = chapter_plan
+        self._save_to_disk()
+        
+    def get_chapter_plan(self):
+        """获取章节计划 - 简单实现"""
+        return self.core_settings.get('chapter_plan', [])
+
     def save_core_settings(self, settings: Dict[str, Any]):
         """保存核心设定"""
         self.core_settings.update(settings)
